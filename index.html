@@ -26,16 +26,43 @@
     <meta name="twitter:title" content="One Word" />
     <meta name="twitter:description" content="One new word a day, at your level. A weekly test to see how far your vocabulary reaches." />
     <meta name="twitter:url" content="https://matthewejames-git.github.io/word-a-day/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
-    />
-    <script type="module" crossorigin src="/word-a-day/assets/index-Brj95_H6.js"></script>
-    <link rel="stylesheet" crossorigin href="/word-a-day/assets/index-BnjYykhx.css">
+    <!-- The saved theme, before anything is drawn, so dark mode does not flash white. Reads only. -->
+    <script>
+      (function () {
+        var palette = 'sage', mode = 'auto';
+        try {
+          var s = JSON.parse(localStorage.getItem('wordaday.v1') || '{}');
+          if (/^(sage|moss|clay|sky|blush)$/.test(s.palette)) palette = s.palette;
+          if (/^(light|dark)$/.test(s.mode)) mode = s.mode;
+        } catch (e) { /* no saved theme */ }
+        if (mode === 'auto') mode = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-palette', palette);
+        document.documentElement.setAttribute('data-mode', mode);
+        // A script that fails before the app has started: show the advice at once.
+        window.addEventListener('error', function () {
+          var late = document.getElementById('boot-late');
+          if (late) late.className = 'now';
+        }, true);
+      })();
+    </script>
+    <style>
+      .boot { padding: 30vh 24px 0; text-align: center; font-family: Georgia, serif; font-size: 2rem; }
+      .boot p { margin: 0 0 12px; }
+      #boot-late { font: 1rem/1.5 system-ui, sans-serif; opacity: 0; animation: boot-late 0.3s 5s forwards; }
+      #boot-late.now { opacity: 1; animation: none; }
+      @keyframes boot-late { to { opacity: 1; } }
+    </style>
+    <script type="module" crossorigin src="/word-a-day/assets/index-zWFV0365.js"></script>
+    <link rel="stylesheet" crossorigin href="/word-a-day/assets/index-84_PFwVF.css">
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Replaced when the app starts. -->
+    <div id="root">
+      <div class="boot">
+        <p>One Word</p>
+        <p id="boot-late">If nothing happens, reload the page or update your browser.</p>
+        <noscript><p style="font: 1rem/1.5 system-ui, sans-serif">One Word needs JavaScript. Please switch it on for this page.</p></noscript>
+      </div>
+    </div>
   </body>
 </html>
